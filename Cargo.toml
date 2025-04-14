@@ -1,0 +1,8 @@
+[workspace]
+members = ["core", "ruchess"]
+resolver = "2"
+
+# Optional workspace-wide settings
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
