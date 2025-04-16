@@ -1,0 +1,9 @@
+[
+  {
+    "label": "cargo run",
+    "command": "cargo run --bin ruchess",
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success"
+  }
+]

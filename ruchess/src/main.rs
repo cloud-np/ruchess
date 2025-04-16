@@ -1,3 +1,6 @@
+use core::board::Board;
+
 fn main() {
-    println!("Hello, world!");
+    let board = Board::default();
+    println!("{:?}", board);
 }
