@@ -8,7 +8,7 @@
 cargo watch -x check -x test
 
 # Watch and run only the main binary on changes
-cargo watch -x 'run --bin sniffer'
+cargo watch -x 'run --bin ruchess-cli'
 
 # Watch with clear screen between runs
 cargo watch -c -x check -x test
@@ -23,7 +23,7 @@ cargo check
 cargo test
 
 # Run the main binary
-cargo run --bin sniffer
+cargo run --bin ruchess-cli
 
 # Build everything
 cargo build
@@ -42,8 +42,8 @@ cargo clippy
 ```
 
 ## Project Structure
-- `core/` - Core chess logic library
-- `ruchess/` - Main binary (currently named "sniffer")
+- `crates/ruchess-core/` - Core chess logic library
+- `crates/ruchess-cli/` - Main binary and CLI interface
 
 ## Development Workflow
 1. Use `cargo watch -x check -x test` for continuous feedback

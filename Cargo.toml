@@ -1,5 +1,5 @@
 [workspace]
-members = ["core", "ruchess", "cli"]
+members = ["crates/ruchess-core", "crates/ruchess-cli", "crates/ruchess-helpers"]
 resolver = "2"
 
 # Optional workspace-wide settings

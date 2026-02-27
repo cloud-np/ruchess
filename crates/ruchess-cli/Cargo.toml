@@ -1,0 +1,8 @@
+[package]
+name = "ruchess-cli"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap = { version = "4.5.60", features = ["derive"] }
+ruchess-core = { path = "../ruchess-core" }
