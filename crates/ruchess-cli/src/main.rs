@@ -1,10 +1,12 @@
 use ruchess_cli::Args;
 use ruchess_core::{Rank, Square};
-use ruchess_core::fen::parse_fen;
+use ruchess_core::fen::{ParseFenError, parse_fen};
 
 fn main() {
-    // let args = Args::init();
-    // parse_fen(&args.fen);
+    let args = Args::init();
+    if let Err(e) = parse_fen(&args.fen) {
+        print!("{}", e);
+    }
     
-    println!("{}", Square::C1);
+    // println!("{:#}", Square::E4.bitboard() | Square::A1.bitboard());
 }

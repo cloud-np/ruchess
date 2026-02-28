@@ -66,12 +66,25 @@ impl BitBoard {
     pub const FULL: BitBoard = BitBoard(!0);
 
     fn has(self, square: Square) -> bool {
-        false
+        (square.bitboard() & self) != BitBoard::EMPTY
+    }
+
+    pub fn flip_horizontal(self) -> Self {
+        let mut new = self.0;
+
+        const K1: u64 = 0x5555555555555555;
+        const K2: u64 = 0x3333333333333333;
+        const K4: u64 = 0x0f0f0f0f0f0f0f0f;
+        new = ((new >> 1) & K1) | ((new & K1) << 1);
+        new = ((new >> 2) & K2) | ((new & K2) << 2);
+        new = ((new >> 4) & K4) | ((new & K4) << 4);
+
+        Self(new)
     }
 }
 
-impl core::fmt::Debug for BitBoard {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+impl core::fmt::Display for BitBoard {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> Result<(), core::fmt::Error> {
         if f.alternate() {
             write!(f, "bitboard! {{")?;
 

@@ -1,10 +1,10 @@
-use crate::pieces::Piece;
 use crate::bitboards::BitBoard;
+use crate::pieces::Piece;
 
 pub struct Board {
     pub pieces: [Piece; 64],
     pub color_bbs: [BitBoard; 2],
-    pub pieces_bbs: [BitBoard; 8]
+    pub pieces_bbs: [BitBoard; 8],
 }
 
 #[repr(i8)]
@@ -18,7 +18,6 @@ pub enum Direction {
     SouthEast = -7,
     SouthWest = -9,
 }
-
 
 const FILE_ABB: BitBoard = BitBoard(0x0101010101010101);
 const FILE_BBB: BitBoard = BitBoard(FILE_ABB.0 << 1);
