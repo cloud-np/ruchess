@@ -1,5 +1,5 @@
 use clap::Parser;
-use ruchess_core::fen::DEFAULT_FEN;
+use ruchess_core::board::DEFAULT_FEN;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]

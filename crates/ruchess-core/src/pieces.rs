@@ -19,7 +19,9 @@ enum_char_conv! {
     }
 }
 
-pub enum Color {
-    White = 0b0,
-    Black = 0b1000,
+simple_enum! {
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+    pub enum Color {
+        White, Black
+    }
 }

@@ -31,7 +31,7 @@ impl Rank {
     /// Flip the rank.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(Rank::First.flip(), Rank::Eighth);
     /// ```
     #[inline(always)]
@@ -42,7 +42,7 @@ impl Rank {
     /// Get a bitboard with all squares on this rank set.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(Rank::Second.bitboard(), bitboard! {
     ///     . . . . . . . .
     ///     . . . . . . . .
@@ -63,7 +63,7 @@ impl Rank {
     /// This flips the rank if viewing from black's perspective.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(Rank::First.relative_to(Color::White), Rank::First);
     /// assert_eq!(Rank::First.relative_to(Color::Black), Rank::Eighth);
     /// ```

@@ -32,7 +32,7 @@ impl File {
     /// Flip the file.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(File::A.flip(), File::H);
     /// ```
     #[inline(always)]
@@ -43,7 +43,7 @@ impl File {
     /// Get a bitboard with all squares on this file set.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(File::B.bitboard(), bitboard! {
     ///     . X . . . . . .
     ///     . X . . . . . .
@@ -68,7 +68,7 @@ impl File {
     /// Get a bitboard with all squares on adjacent files set.
     /// # Examples
     /// ```
-    /// # use cozy_chess_types::*;
+    /// # use ruchess_core::*;
     /// assert_eq!(File::C.adjacent(), bitboard! {
     ///     . X . X . . . .
     ///     . X . X . . . .

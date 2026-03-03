@@ -142,7 +142,6 @@ macro_rules! simple_error {
             }
         }
 
-        #[cfg(feature = "std")]
         impl std::error::Error for $error {}
     };
 
@@ -160,7 +159,6 @@ macro_rules! simple_error {
             }
         }
 
-        #[cfg(feature = "std")]
         impl std::error::Error for $error {}
     };
 }

@@ -18,7 +18,7 @@ ruchess_helpers::simple_enum! {
 
 impl Square {
     #[inline(always)]
-    pub fn new(rank: Rank, file: File) -> Self {
+    pub const fn new(rank: Rank, file: File) -> Self {
         Self::index_const((rank as usize) << 3 | file as usize)
     }
 
@@ -35,6 +35,19 @@ impl Square {
     #[inline(always)]
     pub const fn bitboard(self) -> BitBoard {
         BitBoard(1 << self as u8)
+    }
+
+    // Trying to go to given offset
+    #[inline(always)]
+    pub const fn try_offset(self, file_offset: i8, rank_offset: i8) -> Option<Square> {
+        let file_index = self.file() as i8 + file_offset;
+        let rank_index = self.rank() as i8 + rank_offset;
+        if file_index < 0 || file_index >= 8 || rank_index < 0 || rank_index >= 8 {
+            return None;
+        }
+        let file = File::index_const(file_index as usize);
+        let rank = Rank::index_const(rank_index as usize);
+        Some(Square::new(rank, file))
     }
 }
 
