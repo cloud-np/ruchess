@@ -80,8 +80,9 @@ impl BitBoard {
 
     pub const FULL: BitBoard = BitBoard(!0);
 
-    fn has(self, square: Square) -> bool {
-        (square.bitboard() & self) != BitBoard::EMPTY
+    #[inline(always)]
+    pub const fn has(self, square: Square) -> bool {
+        (square.bitboard().0 & self.0) != Self::EMPTY.0
     }
 
     pub fn flip_horizontal(self) -> Self {
@@ -97,6 +98,10 @@ impl BitBoard {
         Self(new)
     }
 
+    #[inline(always)]
+    pub const fn has_overlap_with(self, other: BitBoard) -> bool {
+        self.0 & other.0 == Self::EMPTY.0
+    }
 }
 
 /// [`BitBoard`] literal macro.
