@@ -24,7 +24,7 @@ macro_rules! simple_enum {
             pub const ALL: [Self; Self::NUM] = [$(Self::$variant),*];
 
             #[doc = concat!("Checked version of [`", stringify!($name), "::index`].")]
-            #[inline(always)]
+            #[inline]
             pub const fn try_index(index: usize) -> Option<Self> {
                 mod variant_indexes {
                     #![allow(non_upper_case_globals, unused)]
@@ -42,7 +42,7 @@ macro_rules! simple_enum {
                 "# Panics\n",
                 "Panic if the index is out of bounds."
             )]
-            #[inline(always)]
+            #[inline]
             pub fn index(index: usize) -> Self {
                 Self::try_index(index).unwrap_or_else(|| panic!("Index {} is out of range.", index))
             }
@@ -52,7 +52,7 @@ macro_rules! simple_enum {
                 "# Panics\n",
                 "Panic if the index is out of bounds."
             )]
-            #[inline(always)]
+            #[inline]
             pub const fn index_const(index: usize) -> Self {
                 if let Some(value) = Self::try_index(index) {
                     value

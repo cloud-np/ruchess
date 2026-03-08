@@ -13,15 +13,24 @@ impl PieceMove {
         PieceMove::get_pawn_quiet(color, from, blockers)
     }
 
-    // const OFFSETS: [(i8, i8); 2] = [(1, 1), (-1, 1)];
-    // let mut i = 0;
-    // while i < OFFSETS.len() {
-    //     i += 1;
-    //     let (file, rank) = OFFSETS[i];
-    //     if let Some(sq) = Square::try_offset(from, file, rank) {
-    //         sq.bitboard();
-    //     }
-    // }
+    const fn get_knight_moves(from: Square) -> BitBoard {
+        const OFFSETS: [(i8, i8); 8] = [
+            (-2, -1), (-2, 1), // North
+            (2, -1), (2, 1),   // South
+            (1, 2), (-1, 2),   // East
+            (1, -2), (-1, -2)  // West
+        ];
+        let from_bb = from.bitboard().0;
+
+        let mut i = 0;
+        let mut moves = BitBoard::EMPTY;
+        while i < OFFSETS.len() {
+            moves = Self::try_add_move(moves, from, OFFSETS[i].0, OFFSETS[i].1);
+            i += 1;
+        }
+        moves
+    }
+
     const fn get_pawn_quiet(color: Color, from: Square, blockers: BitBoard) -> BitBoard {
         let from_bb = from.bitboard().0;
 
@@ -56,7 +65,7 @@ impl PieceMove {
         moves
     }
 
-    #[inline(always)]
+    #[inline]
     const fn try_add_move(
         mut moves: BitBoard,
         from: Square,
@@ -71,63 +80,5 @@ impl PieceMove {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn pawn_moves_no_blockers() {
-        let bb = PieceMove::get(Piece::Pawn, Color::White, Square::B2, BitBoard::EMPTY);
-        assert_eq!(bb, Square::B3.bitboard() | Square::B4.bitboard());
-    }
-
-    #[test]
-    fn pawn_moves_blockers() {
-        let blockers = Square::B4.bitboard() | Square::B1.bitboard();
-        let bb = PieceMove::get(Piece::Pawn, Color::White, Square::B2, blockers);
-        assert_eq!(bb, Square::B3.bitboard());
-    }
-
-    #[test]
-    fn pawn_moves_no_invalid_two_step() {
-        let blockers = Square::B3.bitboard();
-        let bb = PieceMove::get(Piece::Pawn, Color::White, Square::B2, blockers);
-        println!("{:#}", bb);
-        assert_eq!(bb, BitBoard::EMPTY);
-    }
-
-    #[test]
-    fn white_pawn_attacks_center() {
-        let bb = PieceMove::get_pawn_attacks(Color::White, Square::D4);
-        assert_eq!(bb, Square::C5.bitboard() | Square::E5.bitboard());
-    }
-
-    #[test]
-    fn black_pawn_attacks_center() {
-        let bb = PieceMove::get_pawn_attacks(Color::Black, Square::D4);
-        assert_eq!(bb, Square::C3.bitboard() | Square::E3.bitboard());
-    }
-
-    #[test]
-    fn white_pawn_attacks_a_file() {
-        let bb = PieceMove::get_pawn_attacks(Color::White, Square::A2);
-        assert_eq!(bb, Square::B3.bitboard());
-    }
-
-    #[test]
-    fn white_pawn_attacks_h_file() {
-        let bb = PieceMove::get_pawn_attacks(Color::White, Square::H4);
-        assert_eq!(bb, Square::G5.bitboard());
-    }
-
-    #[test]
-    fn black_pawn_attacks_a_file() {
-        let bb = PieceMove::get_pawn_attacks(Color::Black, Square::A7);
-        assert_eq!(bb, Square::B6.bitboard());
-    }
-
-    #[test]
-    fn black_pawn_attacks_h_file() {
-        let bb = PieceMove::get_pawn_attacks(Color::Black, Square::H5);
-        assert_eq!(bb, Square::G4.bitboard());
-    }
-}
+#[path = "piece_move_tests.rs"]
+mod tests;

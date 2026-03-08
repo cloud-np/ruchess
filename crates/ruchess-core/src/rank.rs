@@ -34,7 +34,7 @@ impl Rank {
     /// # use ruchess_core::*;
     /// assert_eq!(Rank::First.flip(), Rank::Eighth);
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn flip(self) -> Self {
         Self::index_const(Self::Eighth as usize - self as usize)
     }
@@ -54,7 +54,7 @@ impl Rank {
     ///     . . . . . . . .
     /// });
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn bitboard(self) -> BitBoard {
         BitBoard(0b11111111 << (self as u8 * 8))
     }
@@ -67,7 +67,7 @@ impl Rank {
     /// assert_eq!(Rank::First.relative_to(Color::White), Rank::First);
     /// assert_eq!(Rank::First.relative_to(Color::Black), Rank::Eighth);
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn relative_to(self, color: Color) -> Self {
         if let Color::White = color {
             self

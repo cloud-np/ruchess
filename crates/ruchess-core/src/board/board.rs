@@ -1,4 +1,4 @@
-use crate::{Color, File, Rank, Square, bitboards::BitBoard, pieces::Piece, PieceMove};
+use crate::{Color, File, Rank, Square, bitboards::BitBoard, pieces::Piece};
 use ruchess_helpers::simple_error;
 
 

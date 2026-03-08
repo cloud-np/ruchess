@@ -17,28 +17,28 @@ ruchess_helpers::simple_enum! {
 
 
 impl Square {
-    #[inline(always)]
+    #[inline]
     pub const fn new(rank: Rank, file: File) -> Self {
         Self::index_const((rank as usize) << 3 | file as usize)
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn file(self) -> File {
         File::index_const(self as usize & 0b000111)
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn rank(self) -> Rank {
         Rank::index_const(self as usize >> 3)
     }
 
-    #[inline(always)]
+    #[inline]
     pub const fn bitboard(self) -> BitBoard {
         BitBoard(1 << self as u8)
     }
 
     // Trying to go to given offset
-    #[inline(always)]
+    #[inline]
     pub const fn try_offset(self, file_offset: i8, rank_offset: i8) -> Option<Square> {
         let file_index = self.file() as i8 + file_offset;
         let rank_index = self.rank() as i8 + rank_offset;

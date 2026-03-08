@@ -35,7 +35,7 @@ impl File {
     /// # use ruchess_core::*;
     /// assert_eq!(File::A.flip(), File::H);
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn flip(self) -> Self {
         Self::index_const(Self::H as usize - self as usize)
     }
@@ -55,7 +55,7 @@ impl File {
     ///     . X . . . . . .
     /// });
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn bitboard(self) -> BitBoard {
         BitBoard(
             u64::from_ne_bytes([
@@ -100,7 +100,7 @@ impl File {
     ///     . . . . . . X .
     /// });
     /// ```
-    #[inline(always)]
+    #[inline]
     pub const fn adjacent(self) -> BitBoard {
         const TABLE: [BitBoard; File::NUM] = {
             let mut table = [BitBoard::EMPTY; File::NUM];
