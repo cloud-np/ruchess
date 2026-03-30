@@ -118,3 +118,75 @@ fn knight_moves_corner() {
         }
     );
 }
+
+#[test]
+fn king_moves_center() {
+    let moves = PieceMove::get_king_moves(Square::E4);
+    assert_eq!(
+        moves,
+        bitboard! {
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . X X X . .
+            . . . X . X . .
+            . . . X X X . .
+            . . . . . . . .
+            . . . . . . . .
+        }
+    );
+}
+
+#[test]
+fn king_moves_corner_a1() {
+    let moves = PieceMove::get_king_moves(Square::A1);
+    assert_eq!(
+        moves,
+        bitboard! {
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            X X . . . . . .
+            . X . . . . . .
+        }
+    );
+}
+
+#[test]
+fn king_moves_corner_h8() {
+    let moves = PieceMove::get_king_moves(Square::H8);
+    assert_eq!(
+        moves,
+        bitboard! {
+            . . . . . . X .
+            . . . . . . X X
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+        }
+    );
+}
+
+#[test]
+fn king_moves_a_file() {
+    let moves = PieceMove::get_king_moves(Square::A4);
+    assert_eq!(
+        moves,
+        bitboard! {
+            . . . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+            X X . . . . . .
+            . X . . . . . .
+            X X . . . . . .
+            . . . . . . . .
+            . . . . . . . .
+        }
+    );
+}

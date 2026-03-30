@@ -13,14 +13,32 @@ impl PieceMove {
         PieceMove::get_pawn_quiet(color, from, blockers)
     }
 
-    const fn get_knight_moves(from: Square) -> BitBoard {
+    pub const fn get_king_moves(from: Square) -> BitBoard {
         const OFFSETS: [(i8, i8); 8] = [
-            (-2, -1), (-2, 1), // North
-            (2, -1), (2, 1),   // South
-            (1, 2), (-1, 2),   // East
-            (1, -2), (-1, -2)  // West
+            (-1, -1), (-1, 0), (-1, 1), // Top
+            (0, -1), (0, 1),            // Mid
+            (1, -1), (1, 0), (1, 1),    // Bottom
         ];
-        let from_bb = from.bitboard().0;
+        let mut i = 0;
+        let mut moves = BitBoard::EMPTY;
+        while i < OFFSETS.len() {
+            moves = Self::try_add_move(moves, from, OFFSETS[i].0, OFFSETS[i].1);
+            i += 1;
+        }
+        moves
+    }
+
+    pub const fn get_knight_moves(from: Square) -> BitBoard {
+        const OFFSETS: [(i8, i8); 8] = [
+            (-2, -1),
+            (-2, 1), // North
+            (2, -1),
+            (2, 1), // South
+            (1, 2),
+            (-1, 2), // East
+            (1, -2),
+            (-1, -2), // West
+        ];
 
         let mut i = 0;
         let mut moves = BitBoard::EMPTY;
@@ -31,7 +49,7 @@ impl PieceMove {
         moves
     }
 
-    const fn get_pawn_quiet(color: Color, from: Square, blockers: BitBoard) -> BitBoard {
+    pub const fn get_pawn_quiet(color: Color, from: Square, blockers: BitBoard) -> BitBoard {
         let from_bb = from.bitboard().0;
 
         let single = match color {
@@ -53,13 +71,13 @@ impl PieceMove {
         BitBoard(single | double)
     }
 
-    const fn get_pawn_attacks(color: Color, from: Square) -> BitBoard {
+    pub const fn get_pawn_attacks(color: Color, from: Square) -> BitBoard {
         const OFFSETS: [[(i8, i8); 2]; Color::NUM] = [[(-1, 1), (1, 1)], [(-1, -1), (1, -1)]];
         let mut moves = BitBoard::EMPTY;
         let mut i = 0;
         while i < OFFSETS[color as usize].len() {
             let (file, rank) = OFFSETS[color as usize][i];
-            moves = Self::try_add_move(moves, from, file, rank);
+            moves = Self::try_add_move(moves, from, rank, file);
             i += 1;
         }
         moves
@@ -69,10 +87,10 @@ impl PieceMove {
     const fn try_add_move(
         mut moves: BitBoard,
         from: Square,
-        file_offset: i8,
         rank_offset: i8,
+        file_offset: i8,
     ) -> BitBoard {
-        if let Some(sq) = Square::try_offset(from, file_offset, rank_offset) {
+        if let Some(sq) = Square::try_offset(from, rank_offset, file_offset) {
             moves.0 |= sq.bitboard().0;
         }
         moves

@@ -39,14 +39,14 @@ impl Square {
 
     // Trying to go to given offset
     #[inline]
-    pub const fn try_offset(self, file_offset: i8, rank_offset: i8) -> Option<Square> {
-        let file_index = self.file() as i8 + file_offset;
+    pub const fn try_offset(self, rank_offset: i8, file_offset: i8) -> Option<Square> {
         let rank_index = self.rank() as i8 + rank_offset;
-        if file_index < 0 || file_index >= 8 || rank_index < 0 || rank_index >= 8 {
+        let file_index = self.file() as i8 + file_offset;
+        if rank_index < 0 || rank_index >= 8 || file_index < 0 || file_index >= 8 {
             return None;
         }
-        let file = File::index_const(file_index as usize);
         let rank = Rank::index_const(rank_index as usize);
+        let file = File::index_const(file_index as usize);
         Some(Square::new(rank, file))
     }
 }
